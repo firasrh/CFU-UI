@@ -1,0 +1,109 @@
+<div *ngIf="isLoggedIn" class="deznav">
+  <div class="deznav-scroll" [perfectScrollbar]>
+    <div class="main-profile">
+      
+      
+
+      <h5 class="mb-0 fs-20 text-black">
+        
+        <span class="font-w400"></span>
+        {{ currentUserSubject.value.firstName }} {{ currentUserSubject.value.lastName }}
+      </h5>
+      <p class="mb-0 fs-14 font-w400">{{ currentUserSubject.value.email }}</p>
+    </div>
+
+    <ul class="metismenu" id="menu" metis-menu>
+      <li [ngClass]="{ 'mm-active': dashboardArray.indexOf(currentHref) > -1 }">
+        <a
+          class="has-arrow ai-icon"
+          href="javascript:void()"
+          aria-expanded="false"
+        >
+          <i class="flaticon-144-layout"></i>
+          <span class="nav-text" [routerLink]="['/dashboard']">Dashboard</span>
+        </a>
+        <ul
+          aria-expanded="false"
+          [ngClass]="{ 'mm-show': dashboardArray.indexOf(currentHref) > -1 }"
+        >
+          <li *ngIf="isAdmin">
+            <a
+              class="{{
+                currentHref == '/admin/index' || currentHref == '/admin'
+                  ? 'mm-active'
+                  : ''
+              }}"
+              [routerLink]="['/BoardAdmin']"
+              >Users Dashboard</a
+            >
+          </li>
+          <li>
+            <a
+              class="{{
+                currentHref == '/dashboard' 
+                  ? 'mm-active'
+                  : ''
+              }}"
+              [routerLink]="['/dashboard']"
+              >Dashboard</a
+            >
+          </li>
+          <li>
+            <a
+              [routerLink]="['/googleT']"
+              class="{{
+                currentHref == '/googleT' ? 'mm-active' : ''
+              }}"
+              >Google Interest</a
+            >
+          </li>
+          <li>
+            <a
+              [routerLink]="['/socialMedia']"
+              class="{{
+                currentHref == '/socialMedia' ? 'mm-active' : ''
+              }}"
+              >Statistics Details</a
+>
+          </li>
+          
+          
+          <li>
+            <a
+              [routerLink]="['/prediction']"
+              class="{{
+                currentHref == '/prediction' ? 'mm-active' : ''
+              }}"
+              >Prediction </a
+            >
+          </li>
+          
+        </ul>
+      </li>
+      <li>
+        <a  [routerLink]="['/portfolios']">
+          <i class="flaticon-077-menu-1"></i>
+         Portofolios</a>
+        
+        <ul
+          aria-expanded="false"
+          [ngClass]="{ 'mm-show': apsArray.indexOf(currentHref) > -1 }"
+        >
+          
+        </ul>
+      </li>
+      
+      
+      
+      
+      
+      
+    </ul>
+    <div class="copyright">
+      <p>
+        <strong>CoinFollowUP</strong> © 2022 All Rights Reserved
+      </p>
+      
+    </div>
+  </div>
+</div>

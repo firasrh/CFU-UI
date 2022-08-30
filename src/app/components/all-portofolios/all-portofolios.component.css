@@ -1,0 +1,21 @@
+table td {
+  width: 50em;
+}
+table td:nth-child(3) {
+  text-align: end;
+}
+.space {
+  width: 8px;
+  height: auto;
+  display: inline-block;
+}
+.border-none tr td:first-child {
+  border-left: none;
+}
+
+.border-none tr td:last-child {
+  border-right: none;
+}
+mat-form-field {
+  width: 400px;
+}

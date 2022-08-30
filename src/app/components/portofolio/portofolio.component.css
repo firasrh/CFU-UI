@@ -1,0 +1,30 @@
+input[type=text] {
+    width: 180%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  .space {
+    width: 6px;
+    height: auto;
+    display: inline-block;
+  }
+
+  .app-class .mat-list-item {
+    height: auto;
+  }
+  mat-chip {
+    max-width: 300px;
+  }
+  .border-none tr td:first-child {
+    border-left: none;
+  }
+  
+  .border-none tr td:last-child {
+    border-right: none;
+  }
+  
+  

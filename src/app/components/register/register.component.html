@@ -1,0 +1,154 @@
+<div class="authincation h-100">
+  <div class="container vh-100">
+    <div class="row justify-content-center h-100 align-items-center">
+      <div class="col-lg-6 col-md-8">
+        <div class="authincation-content">
+          <div class="row no-gutters">
+            <div class="col-xl-12">
+              <div class="auth-form">
+                <div class="text-center mb-3">
+                  <a [routerLink]="['/admin/index']"
+                    ><img src="assets/images/logo-full.png" alt=""
+                  /></a>
+                </div>
+                <h4 class="text-center mb-4">Sign up your account</h4>
+                <form class="form-valide" action="#" method="post" [formGroup]="angForm" novalidate>
+                  <div class="row no-gutters">
+                    <div class="col-xl-12">
+                      <div class="form-group row">
+                        <label class="col-lg-4 col-form-label" for="firstName"><strong>Firstname</strong>
+                          <span class="text-danger">*</span>
+                                              </label>
+                        <div class="col-lg-8">
+                          <input type="text" class="form-control" id="firstName" formControlName="firstName" placeholder="Enter a firstname..">
+                          <div *ngIf="angForm.controls['firstName'].invalid && (angForm.controls['firstName'].dirty || angForm.controls['firstName'].touched)" class="text-danger fs-13 mt-1">
+                            
+                            <div *ngIf="angForm.controls['firstName'].errors.required">
+                              Firstname is required.
+                            </div>
+                            <div *ngIf="angForm.controls['firstName'].errors.minlength">
+                              Firstname must be at least 3 characters.
+                            </div>
+                            <div *ngIf="angForm.controls['firstName'].errors.maxlength ">
+                              Firstname must contain a maximum 20 characters.
+                            </div>
+                            <div *ngIf="angForm.controls['firstName'].errors.pattern">
+                              Firstname must contain alpha characters only.
+                            </div>
+                                      
+                          </div>
+                        </div>
+                        
+                      </div>
+                      
+                      <div class="form-group row">
+                        <label class="col-lg-4 col-form-label" for="lastName"><strong>LastName</strong>
+                          <span class="text-danger">*</span>
+                                              </label>
+                        <div class="col-lg-8">
+                          <input type="text" class="form-control" id="lastName" formControlName="lastName" placeholder="Enter a lastname..">
+                          <div *ngIf="angForm.controls['lastName'].invalid && (angForm.controls['lastName'].dirty || angForm.controls['lastName'].touched)" class="text-danger fs-13 mt-1">
+                            
+                            <div *ngIf="angForm.controls['lastName'].errors.required">
+                              Lastname is required.
+                            </div>
+                            <div *ngIf="angForm.controls['lastName'].errors.minlength">
+                              Lastname must be at least 3 characters.
+                            </div>
+                            <div *ngIf="angForm.controls['lastName'].errors.maxlength ">
+                              Lastname must contain a maximum 20 characters.
+                            </div>
+                            <div *ngIf="angForm.controls['lastName'].errors.pattern">
+                              Lastname must contain alpha characters only.
+                            </div>
+                             </div>
+                              </div>
+                        
+                                          </div>
+                      <div class="form-group row">
+                        <label class="col-lg-4 col-form-label" for="email"><strong>Email </strong><span
+                          class="text-danger">*</span>
+                                              </label>
+                        <div class="col-lg-8">
+                          <input type="text" class="form-control" id="email" formControlName="email" placeholder="Your valid email..">
+                          <div *ngIf="angForm.controls['email'].invalid && (angForm.controls['email'].dirty || angForm.controls['email'].touched)" class="text-danger fs-13 mt-1">
+                            <div *ngIf="angForm.controls['email'].errors.required">
+                              Email is required.
+                            </div>
+                            <div *ngIf="angForm.controls['email'].errors.pattern">
+                              Email must be a valid email address.
+                             </div>
+                          </div>
+                                              </div>
+                                          </div>
+                      <div class="form-group row">
+                        <label class="col-lg-4 col-form-label" for="val-password"><strong>Password</strong>
+                          <span class="text-danger">*</span>
+                                              </label>
+                        <div class="col-lg-8">
+                          <div class="input-group">
+                            <input #inputPassword type="password" class="form-control" formControlName="password"  id="password" placeholder="Choose a safe one..">
+                            
+                            <div class="input-group-append show-pass1 ">
+                              <span class="input-group-text "> 
+                                <i class="fa" [ngClass]="{'fa-eye-slash': toggleEye, 'fa-eye': !toggleEye}" (click)="toggleEyeIcon(inputPassword)"></i>
+                                                          </span>
+                                                      </div>
+                                                  </div>
+                          
+                          <div *ngIf="angForm.controls['password'].invalid && (angForm.controls['password'].dirty || angForm.controls['password'].touched)" class="text-danger fs-13 mt-1">
+                            
+                            <div *ngIf="angForm.controls['password'].errors.required">
+                              Password is required.
+                                                      </div>
+                            <div *ngIf="angForm.controls['password'].errors.minlength">
+                              Password must be at least 6 characters.
+                                                      </div>
+                                                  </div>	
+                                              </div>
+                                          </div>
+                                                
+                      
+                                      </div>
+                                  </div>
+                            
+                  <div class="text-center mt-4">
+                    <button class="btn btn-primary btn-block" [disabled]="angForm.pristine || angForm.invalid " (click)="onSubmit()">
+                      Sign me up
+                    </button>
+                    <button
+                      type="submit"
+                      class="btn btn-primary btn-block"
+                      [style.border]="'#3b5998'"
+                      [style.background]="'#3b5998'"
+                      (click)="facebookSignUp()"
+                    >
+                      Sign up with <i class="fa fa-facebook"></i>
+                    </button>
+                    <button
+                      type="submit"
+                      class="btn btn-primary btn-block"
+                      [style.border]="'#FF4B4B'"
+                      [style.background]="'#FF4B4B'"
+                      (click)="GoogleSignUp()"
+                    >
+                      Sign up with <i class="fa fa-google-plus"></i>
+                    </button>
+                  </div>
+                </form>
+                <div class="new-account mt-3">
+                  <p>
+                    Already have an account?
+                    <a class="text-primary" [routerLink]="['/login']"
+                      >Sign in</a
+                    >
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

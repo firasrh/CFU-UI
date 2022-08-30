@@ -1,0 +1,226 @@
+<!--**********************************
+    Content body start
+***********************************-->
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles mx-0">
+            <div class="col-sm-6 p-md-0">
+                <div class="welcome-text">
+                    <h4>Google</h4>
+                    <p class="mb-0">Interest web search analysis </p>
+                </div>
+            </div>
+            <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+               
+            </div>
+        </div>
+        <!-- row -->
+        <!--**********************************
+                       nterest Over Time<
+              ***********************************-->
+        <div class="row">
+            <div class="col-xl-6 col-xxl-12">
+                <div class="card">
+                    <div class="card-header d-block">
+                        <h4 class="card-title">Google SearchWeb Interest </h4>
+                    </div>
+                    <div class="card-body">
+                        
+                        <div id="user-activity" class="card default-apex-cl">
+                            <div class="card-header border-0 pb-0 d-sm-flex d-block">
+                                <div class="example-container" style=" display: flex; justify-content: center;">
+                        
+                                    
+                                    <form  name="form" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+                                        <mat-form-field appearance="fill" >
+                                      <mat-select  [formControl]="selectedCoin" required>
+                                    
+                                        <mat-option *ngFor="let coin of coins" [value]="coin">
+                                            {{coin}}
+                                        </mat-option>
+                                      </mat-select>
+                                      <mat-label><mat-icon>attach_money</mat-icon> <b> Coin </b> </mat-label>
+                                    </mat-form-field>
+                                  
+                                      
+                                
+                                      <mat-form-field appearance="fill"  >
+                                        <mat-select [formControl]="selectedTime"  required >
+                                          <mat-option value="hour" >Hour</mat-option>
+                                          <mat-option value="day" >Day</mat-option>
+                                          <mat-option value="week" >Week</mat-option>
+                                          <mat-option value="month" >Month</mat-option>
+                                          <mat-option value="year" >Year</mat-option>
+                                          <mat-option value="all" >All</mat-option>
+                                        </mat-select>
+                                        <mat-label><mat-icon>today</mat-icon> <b> Time </b> </mat-label>
+                                      </mat-form-field>
+                                  
+                                      <mat-form-field appearance="fill" >
+                                        <mat-select [formControl]="selectedGeo"  required>
+                                          
+                                          <mat-option *ngFor="let country of coutry_code" [value]="country">
+                                            {{country}}
+                                        </mat-option>
+                        
+                                        </mat-select>
+                                        <mat-label><mat-icon>my_location</mat-icon> <b> Country Code </b> </mat-label>
+                                      </mat-form-field>
+                                      
+                                       <div style=" display: flex; justify-content: right;">
+                                        <button type="button" class="btn light btn-secondary" (click)="onSubmit()" >Search</button>
+                                       </div> 
+                                    </form>
+                                  </div>
+                        
+                        
+                        
+                                <div class="card-action mb-sm-0 my-2">
+                                    <ul class="nav nav-tabs" role="tablist" ngbNav #nav="ngbNav" >
+                                        <li class="nav-item" ngbNavItem="Day">
+                                            
+                                            <ng-template ngbNavContent>
+                                                <div class="chart-wrapper">
+                                                    <apx-chart
+                                                    [series]="chartOptions.series"
+                                                    [chart]="chartOptions.chart"
+                                                    [xaxis]="chartOptions.xaxis"
+                                                    [tooltip]="chartOptions.tooltip"
+                                                    [stroke]="chartOptions.stroke"
+                                                    [dataLabels]="chartOptions.dataLabels"
+                                                    [yaxis]="chartOptions.yaxis"
+                                                    [labels]="chartOptions.labels"
+                                                    [legend]="chartOptions.legend"
+                                                    [title]="chartOptions.title"
+                                                    [subtitle]="chartOptions.subtitle"
+                                                  ></apx-chart>
+                                                </div>
+                        
+                                            </ng-template>
+                                        </li>
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div [ngbNavOutlet]="nav" class=""></div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+
+            <!--**********************************
+                         Content body start
+             ***********************************-->
+            <div class="col-xl-6 col-xxl-12">
+                <div class="card">
+                    <div class="card-header d-block">
+                        <h4 class="card-title">Interest By Country</h4>
+                    </div>
+                    <div class="card-body">
+                    <apx-chart
+                        [series]="chartOptions3.series"
+                        [chart]="chartOptions3.chart"
+                        
+                        [labels]="chartOptions3.labels"
+                        [dataLabels]="chartOptions3.dataLabels"
+                        [title]="chartOptions3.title"
+                        [fill]="chartOptions3.fill"
+                        [states]="chartOptions3.states"
+                        [plotOptions]="chartOptions3.plotOptions"
+                        [stroke]="chartOptions3.stroke"
+                        [theme]="chartOptions3.theme"
+                        [responsive]="chartOptions3.responsive"
+                        [legend]="chartOptions3.legend"
+                    ></apx-chart>
+                        
+
+                    </div>
+                </div>
+            </div>
+
+            <!--**********************************
+                    Content body start
+              ***********************************-->
+            <div class="col-xl-6 col-xxl-12">
+                <div class="card">
+                    <div class="card-header d-block">
+                        <h4 class="card-title">Related Search Term</h4>
+                    </div>
+                    <div class="card-body">
+                        <apx-chart
+                        
+                        [series]="chartOptions4.series"
+                        [chart]="chartOptions4.chart"
+                        [dataLabels]="chartOptions4.dataLabels"
+                        [plotOptions]="chartOptions4.plotOptions"
+                        [xaxis]="chartOptions4.xaxis"
+                      >
+                        </apx-chart>
+                    </div>
+                </div>
+            </div>
+
+            <!--**********************************
+                            Content body start
+                    ***********************************-->
+
+            <div class="col-xl-6 col-xxl-12">
+                <div class="card">
+                    <div class="card-header d-block">
+                        <h4 class="card-title">Interest Over Time By Region</h4>
+                    </div>
+                    <div class="card-body">
+                        <apx-chart
+                        [series]="chartOptions5.series"
+                        [chart]="chartOptions5.chart"
+                        [xaxis]="chartOptions5.xaxis"
+                        [dataLabels]="chartOptions5.dataLabels"
+                        [grid]="chartOptions5.grid"
+                        [stroke]="chartOptions5.stroke"
+                        [title]="chartOptions5.title"
+                        [markers]="chartOptions5.markers"
+                        [yaxis]="chartOptions5.yaxis"
+                        [tooltip]="chartOptions5.tooltip"
+                        [fill]="chartOptions5.fill"
+
+                      >
+                        </apx-chart>
+                    </div>
+                </div>
+            </div>
+
+            <!--**********************************
+                            Content body start
+                    ***********************************-->
+            <div class="col-xl-6 col-xxl-12">
+                <div class="card">
+                    <div class="card-header d-block">
+                        <h4 class="card-title">Interest By Subregion</h4>
+                    </div>
+                    <div class="card-body">
+                        <apx-chart
+                             [series]="chartOptions2.series"
+                             [chart]="chartOptions2.chart"
+                             [labels]="chartOptions2.labels"
+                             [responsive]="chartOptions2.responsive"
+                             [legend]="chartOptions2.legend">
+                        </apx-chart>
+                    </div>
+                </div>
+            </div>
+
+           
+           
+        </div>
+        
+    </div>
+</div>
+<!--**********************************
+    Content body end
+***********************************-->
+
+

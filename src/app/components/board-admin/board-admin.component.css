@@ -1,0 +1,19 @@
+table td {
+  width: 50em;
+}
+
+.space {
+  width: 8px;
+  height: auto;
+  display: inline-block;
+}
+.border-none tr td:first-child {
+  border-left: none;
+}
+
+.border-none tr td:last-child {
+  border-right: none;
+}
+mat-form-field {
+  width: 400px;
+}

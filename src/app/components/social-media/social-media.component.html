@@ -1,0 +1,139 @@
+<app-nav-header></app-nav-header>
+<app-header></app-header>
+<app-navigation></app-navigation>
+
+<!--**********************************
+    Content body start
+***********************************-->
+<div class="content-body">
+    <div class="container-fluid default-apex-cl">
+        <div class="row page-titles mx-0">
+            <div class="col-sm-6 p-md-0">
+                <div class="welcome-text">
+                    <h4>Hi, welcome back!</h4>
+                    
+                </div>
+            </div>
+            <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                
+            </div>
+        </div>
+        <!-- row -->
+        <div class="row">
+            <div class="col-xl-6 col-xxl-12">
+                <div class="card">
+                    
+                    <div class="card-body" style="display: flex; justify-content: center;">
+                        <form  name="form" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+                            <mat-form-field disableRipple >
+                          <mat-select  [formControl]="selectedCoin" required >
+                        
+                            <mat-option *ngFor="let coin of coins" [value]="coin">
+                                {{coin}}
+                            </mat-option>
+                          </mat-select>
+                          <mat-label><mat-icon>attach_money</mat-icon> <b> Coin </b> </mat-label>
+                          
+                        </mat-form-field>
+                        <div style="display: flex; justify-content: center;">
+                            <button type="button" class="btn light btn-secondary"  (click)="onSubmit()">Search</button>
+                        </div>
+                            
+                                
+                              
+                        
+                        </form>
+                        
+                                                
+
+
+                        
+                    </div>
+                </div>
+            </div>
+           
+
+
+            <div class="col-xl-6 col-xxl-12">
+                <div class="card">
+                    <div class="card-header d-block">
+                        <h4 class="card-title">Recent Prices</h4>
+                    </div>
+                    <div class="card-body">
+                       
+                        <apx-chart
+                            [series]="chartOptions2.series"
+                            [chart]="chartOptions2.chart"
+                            [xaxis]="chartOptions2.xaxis"
+                            [stroke]="chartOptions2.stroke"
+                            [tooltip]="chartOptions2.tooltip"
+                            [dataLabels]="chartOptions2.dataLabels"
+                            [legend]="chartOptions2.legend"
+                            [markers]="chartOptions2.markers"
+                            [grid]="chartOptions2.grid"
+                            [yaxis]="chartOptions2.yaxis"
+                            [title]="chartOptions2.title"
+                        ></apx-chart>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-6 col-xxl-12">
+                <div class="card">
+                    <div class="card-header d-block">
+                        <h4 class="card-title">Recent Volume</h4>
+                    </div>
+                    <div class="card-body">
+                        <apx-chart
+                        [series]="chartOptions3.series"
+                        [chart]="chartOptions3.chart"
+                        [dataLabels]="chartOptions3.dataLabels"
+                        [markers]="chartOptions3.markers"
+                        [title]="chartOptions3.title"
+                        [fill]="chartOptions3.fill"
+                        [yaxis]="chartOptions3.yaxis"
+                        [xaxis]="chartOptions3.xaxis"
+                        [tooltip]="chartOptions3.tooltip"
+                                    
+                      ></apx-chart>
+                        
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-xl-6 col-xxl-12">
+                <div class="card">
+                    <div class="card-header d-block">
+                        <h4 class="card-title">Recent 200 Tweets</h4>
+                    </div>
+                    <div class="card-body">
+                       
+                        <apx-chart
+                            [series]="chartOptions.series"
+                            [chart]="chartOptions.chart"
+                            [xaxis]="chartOptions.xaxis"
+                            [stroke]="chartOptions.stroke"
+                            [tooltip]="chartOptions.tooltip"
+                            [dataLabels]="chartOptions.dataLabels"
+                            [legend]="chartOptions.legend"
+                            [markers]="chartOptions.markers"
+                            [grid]="chartOptions.grid"
+                            [yaxis]="chartOptions.yaxis"
+                            [title]="chartOptions.title"
+                        ></apx-chart>
+
+                    </div>
+                </div>
+            </div>
+            
+            
+        </div>
+        
+    </div>
+</div>
+<!--**********************************
+    Content body end
+***********************************-->

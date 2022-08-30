@@ -1,0 +1,201 @@
+<app-nav-header></app-nav-header>
+<app-header></app-header>
+<app-navigation></app-navigation>
+<div class="content-body">
+  <div class="container-fluid">
+    <div class="form-head mb-4 mb-sm-5 d-flex flex-wrap align-items-center">
+      <h2 class="font-w600 mb-0 text-black">All Users</h2>
+    </div>
+    <ng-template #contentAdd let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title3">Add</h4>
+        <button
+          type="button"
+          class="close"
+          aria-label="Close"
+          (click)="d('Cross click')"
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="userForm">
+          <div class="form-group">
+            <mat-form-field class="example-full-width">
+              <mat-label>First Name</mat-label>
+              <input formControlName="firstName" matInput />
+            </mat-form-field>
+            <br />
+            <mat-form-field class="example-full-width">
+              <mat-label>Last Name</mat-label>
+              <input formControlName="lastName" matInput />
+            </mat-form-field>
+            <br />
+            <mat-form-field class="example-full-width">
+              <mat-label>Email</mat-label>
+              <input formControlName="email" matInput />
+            </mat-form-field>
+            <br />
+            <mat-form-field class="example-full-width">
+              <mat-label>Password</mat-label>
+              <input formControlName="password" matInput />
+            </mat-form-field>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-dark"
+          (click)="d('Cross click')"
+        >
+          Cancel
+        </button>
+        <button type="button" class="btn btn-outline-dark" (click)="c('save')">
+          save
+        </button>
+      </div>
+    </ng-template>
+    <ng-template #contentDelete let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Confirmation</h4>
+        <button
+          type="button"
+          class="close"
+          aria-label="Close"
+          (click)="d('Cross click')"
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure to delete this?</p>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-dark"
+          (click)="d('Cross click')"
+        >
+          Cancel
+        </button>
+        <button type="button" class="btn btn-outline-dark" (click)="c('yes')">
+          Yes
+        </button>
+      </div>
+    </ng-template>
+    <ng-template #contentUpdate let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title2">Edit</h4>
+        <button
+          type="button"
+          class="close"
+          aria-label="Close"
+          (click)="d('Cross click')"
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="userUpdateForm">
+          <div class="form-group">
+            <mat-form-field class="example-full-width">
+              <mat-label>First Name</mat-label>
+              <input
+                formControlName="firstName"
+                matInput
+                [(ngModel)]="currentuser.firstName"
+              />
+            </mat-form-field>
+            <br />
+            <mat-form-field class="example-full-width">
+              <mat-label>Last Name</mat-label>
+              <input
+                formControlName="lastName"
+                matInput
+                [(ngModel)]="currentuser.lastName"
+              />
+            </mat-form-field>
+            <br />
+            <mat-form-field class="example-full-width">
+              <mat-label>Email</mat-label>
+              <input
+                formControlName="email"
+                matInput
+                [(ngModel)]="currentuser.email"
+              />
+            </mat-form-field>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-dark"
+          (click)="d('Cross click')"
+        >
+          Cancel
+        </button>
+        <button type="button" class="btn btn-outline-dark" (click)="c('save')">
+          save
+        </button>
+      </div>
+    </ng-template>
+    <div class="row">
+      <div class="col-xl-12">
+        <button
+          (click)="openAdd(contentAdd)"
+          type="button"
+          class="btn btn-primary"
+        >
+          <i class="fa fa-plus" aria-hidden="true"></i>
+          Add New User
+        </button>
+        <div class="table-responsive table-hover fs-14">
+          <table
+            class="table display mb-4 dataTablesCard dataTable short-one card-table text-black"
+            id="example5"
+          >
+            <thead>
+              <tr>
+                <th>Client ID</th>
+                <th>FirstName</th>
+                <th>Lastname</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of Allusers; let i = index">
+                <td class="mb-0 wspace-no">#{{ user.id }}</td>
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.lastName }}</td>
+                <td>
+                  <span class="text-black font-w600">{{ user.email }}</span>
+                </td>
+                <td>
+                  <p class="mb-0 wspace-no">{{ user.role }}</p>
+                </td>
+                <td>
+                  <div class="space"></div>
+                  <i
+                    (click)="openUpdate(contentUpdate, user.id)"
+                    class="fa fa-edit"
+                    style="font-size: 28px; color: rgb(0, 217, 255)"
+                  ></i>
+                  <div class="space"></div>
+                  <i
+                    (click)="openDelete(contentDelete, user.id)"
+                    class="fa fa-trash-o"
+                    style="font-size: 28px; color: red"
+                  ></i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

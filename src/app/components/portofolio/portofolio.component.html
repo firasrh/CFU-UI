@@ -1,0 +1,210 @@
+<app-nav-header></app-nav-header>
+<app-header></app-header>
+<app-navigation></app-navigation>
+<div class="content-body">
+  <div class="container-fluid">
+    <div class="card">
+      <ng-template #mymodal let-modal>
+        <div class="modal-header">
+          <button
+            type="button"
+            class="close"
+            aria-label="Close"
+            (click)="modal.dismiss('Cross click')"
+          >
+            <span aria-hidden="true">×</span>
+          </button>
+
+          <div class="search">
+            <input
+              type="text"
+              [(ngModel)]="term"
+              class="searchTerm form-control mr-sm-2"
+              placeholder="Enter Coin Name"
+            />
+          </div>
+        </div>
+        <h5 style="text-align: center">Trending Search !</h5>
+
+        <mat-list class="app-class">
+          <mat-list-item *ngFor="let row of bannerData | filter: term">
+            <a
+              class="list-group-item list-group-item-action"
+              (click)="onSelect(row)"
+            >
+              <img [src]="row.image" matListAvatar />
+              <div class="space"></div>
+              <span matLine>{{ row.name | uppercase }} </span>
+            </a>
+          </mat-list-item>
+        </mat-list>
+
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-outline-dark"
+            (click)="modal.close('Save click')"
+          >
+            Ok
+          </button>
+        </div>
+      </ng-template>
+
+      <div class="card-header pb-2 d-block d-sm-flex flex-wrap border-0">
+        <div class="mb-3">
+          <h4 class="fs-20 text-black">{{ portfolioName }}</h4>
+          <p class="mb-0 fs-12">Lorem ipsum dolor sit amet, consectetur</p>
+        </div>
+        <div class="card-action card-tabs mb-3 style-1">
+          <ul class="nav nav-tabs" role="tablist" ngbNav #nav="ngbNav">
+            <li class="nav-item" ngbNavItem="Monthly">
+              <a
+                (click)="open(mymodal)"
+                class="nav-link"
+                data-toggle="tab"
+                href="#Monthly"
+                role="tab"
+                aria-selected="false"
+                ngbNavLink
+              >
+                <i class="fa fa-plus" aria-hidden="true"></i>Add New Coin</a
+              >
+
+              <ng-template ngbNavContent>
+                <div class="table-responsive">
+                  <table
+                    class="table table-bordered border-none shadow-hover card-table tbl-btn short-one"
+                  >
+                    <thead>
+                      <tr>
+                        <th>Rank</th>
+                        <th>Coin</th>
+                        <th>Last Price</th>
+                        <th>Change (24h)</th>
+                        <th>Volume (24h)</th>
+                        <th>Asset platform</th>
+                        <th>Graph</th>
+                        <th class="bg-none width50"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of UserCoins">
+                        <td>
+                          <span class="{{ item.rank_class }}  rank-ic fs-20">{{
+                            item.market_cap_rank
+                          }}</span>
+                        </td>
+                        <td class="wspace-no">
+                          <img src="{{ item.image }}" class="width40 mr-3" />
+                          <span class="text-black">{{ item.name }}</span>
+
+                          <mat-chip-list
+                            *ngIf="item.categories?.length > 3"
+                            aria-label="Fish selection"
+                          >
+                            <mat-chip style="top: 8px">{{
+                              item.categories[0]
+                            }}</mat-chip>
+                            <mat-chip style="top: 8px">{{
+                              item.categories[1]
+                            }}</mat-chip>
+                            <mat-chip style="top: 8px">{{
+                              item.categories[2]
+                            }}</mat-chip>
+                            <mat-icon
+                              style="top: 8px"
+                              mat-raised-button
+                              matTooltip="{{ item.cat }}"
+                              aria-label="Button that displays a tooltip when focused or hovered over"
+                            >
+                              expand_more</mat-icon
+                            >
+                          </mat-chip-list>
+
+                          <mat-chip-list
+                            *ngIf="item.categories?.length < 3"
+                            aria-label="Fish selection"
+                          >
+                            <mat-chip
+                              *ngFor="let i of item.categories"
+                              style="top: 8px"
+                              >{{ i }}</mat-chip
+                            >
+                          </mat-chip-list>
+                        </td>
+                        <td>{{ item.current_price | currency: currency }}</td>
+                        <td>{{ item.price_change_percentage_24h }}%</td>
+                        <td>{{ item.total_volume | currency: currency }}</td>
+                        <td>{{ item.asset_platform_id }}</td>
+                        <td>
+                          <apx-chart
+                            [series]="[{ name: 'Desktops', data: item.data }]"
+                            [chart]="chartOptions.chart"
+                            [xaxis]="chartOptions.xaxis"
+                            [yaxis]="chartOptions.yaxis"
+                            [dataLabels]="chartOptions.dataLabels"
+                            [grid]="chartOptions.grid"
+                            [stroke]="chartOptions.stroke"
+                            [colors]="['#eb8153']"
+                            [tooltip]="chartOptions.tooltip"
+                            [responsive]="chartOptions.responsive"
+                          ></apx-chart>
+                        </td>
+
+                        <td>
+                          <div
+                            class="dropdown ml-4 dropdown-no-icon"
+                            ngbDropdown
+                          >
+                            <div
+                              class="btn-link"
+                              data-toggle="dropdown"
+                              ngbDropdownToggle
+                            ></div>
+                            <div
+                              class="dropdown-menu dropdown-menu-right"
+                              ngbDropdownMenu
+                            >
+                              <a
+                                (click)="gotoDetails(item)"
+                                class="dropdown-item"
+                                href="javascript:void(0);"
+                                >View details</a
+                              >
+                              <a
+                                (click)="deleteUserCoin(item.id)"
+                                class="dropdown-item"
+                                href="javascript:void(0);"
+                                >Delete</a
+                              >
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </ng-template>
+            </li>
+            <li class="nav-item" ngbNavItem="Weekly">
+              <a
+                (click)="gotoTransactions()"
+                class="nav-link"
+                data-toggle="tab"
+                href="#Weekly"
+                role="tab"
+                aria-selected="false"
+                ngbNavLink
+              >
+                Transactions
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="card-body p-0">
+        <div [ngbNavOutlet]="nav" class=""></div>
+      </div>
+    </div>
+  </div>
+</div>

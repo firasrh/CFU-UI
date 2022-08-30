@@ -1,0 +1,264 @@
+<app-nav-header></app-nav-header>
+<app-header></app-header>
+<app-navigation></app-navigation>
+<!--**********************************
+    Content body start
+***********************************-->
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles mx-0">
+            <div class="col-sm-6 p-md-0">
+                <div class="welcome-text">
+                    <h4>Prediction</h4>
+                    <p class="mb-0"> </p>
+                </div>
+            </div>
+            <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+               
+            </div>
+        </div>
+        <!-- row -->
+        <!--**********************************
+                       nterest Over Time<
+              ***********************************-->
+        <div class="row">
+            <div class="col-xl-6 col-xxl-12">
+                <div class="card">
+                    <div class="card-header d-block">
+                        <h4 class="card-title">Cardano 'ADA-USD' Prediction Status (1 hour stock)</h4>
+                    </div>
+                    <div class="card-body">
+                        
+                        <div id="user-activity" class="card default-apex-cl">
+                            <div class="card-header border-0 pb-0 d-sm-flex d-block">
+                                <div class="example-container" style=" display: flex; justify-content: center;">
+                                    <form class="form-valide" action="#" method="post" [formGroup]="angForm" novalidate>
+                                        <div class="row">
+                                            <div class="col-xl-6">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-4 col-form-label" for="likes">Twitter Likes <span
+                                                        class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="col-lg-6">
+                                                        <input type="text" class="form-control" id="likes" placeholder="5" formControlName="likes" type="number">
+                                                        <div *ngIf="angForm.controls['likes'].invalid && (angForm.controls['likes'].dirty || angForm.controls['likes'].touched)" class="text-danger fs-13 mt-1">
+                                                            
+                                                            <div *ngIf="angForm.controls['likes'].errors.required">
+                                                                Twitter Likes is required.
+                                                            </div>
+                                                            <div *ngIf="angForm.controls['likes'].errors.nonPositive">
+                                                                Twitter Likes is positive .
+                                                            </div>
+                                                            <div *ngIf="angForm.controls['likes'].errors.pattern">
+                                                                Twitter Likes must be a valid number .
+                                                            </div>
+                                                            
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-4 col-form-label" for="comments">Twitter Comments
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="col-lg-6">
+                                                        <input type="text" class="form-control" id="comments" placeholder="5" formControlName="comments" type="number">
+                                                        <div *ngIf="angForm.controls['comments'].invalid && (angForm.controls['comments'].dirty || angForm.controls['comments'].touched)" class="text-danger fs-13 mt-1">
+                                                            
+                                                            <div *ngIf="angForm.controls['comments'].errors.required">
+                                                                Twitter Comments is required.
+                                                            </div>
+                                                            <div *ngIf="angForm.controls['comments'].errors.nonPositive">
+                                                                Twitter Comments is positive.
+                                                            </div>
+                                                            <div *ngIf="angForm.controls['comments'].errors.pattern">
+                                                                Twitter Comments must be a valid number
+                                                            </div>
+                                                            
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-4 col-form-label" for="retweets">Twitter Retweets <span
+                                                        class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="col-lg-6">
+                                                        <input type="text" class="form-control" id="retweets" placeholder="5" formControlName="retweets" type="number">
+                                                        <div *ngIf="angForm.controls['retweets'].invalid && (angForm.controls['retweets'].dirty || angForm.controls['retweets'].touched)" class="text-danger fs-13 mt-1">
+                                                            
+                                                            <div *ngIf="angForm.controls['retweets'].errors.required">
+                                                                Twitter Retweets is required.
+                                                            </div>
+                                                            <div *ngIf="angForm.controls['retweets'].errors.nonPositive ">
+                                                                Twitter Retweets is positive .
+                                                            </div>
+                                                            <div *ngIf="angForm.controls['retweets'].errors.pattern">
+                                                                Twitter Retweets must be a valid number
+                                                            </div>
+                                                            
+                                                            
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-4 col-form-label" for="posts">Twitter Posts <span
+                                                        class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="col-lg-6">
+                                                        <input type="text" class="form-control" id="posts" placeholder="5" formControlName="posts" type="number">
+                                                        <div *ngIf="angForm.controls['posts'].invalid && (angForm.controls['posts'].dirty || angForm.controls['posts'].touched)" class="text-danger fs-13 mt-1">
+                                                            
+                                                            <div *ngIf="angForm.controls['posts'].errors.required">
+                                                                Twitter Posts is required.
+                                                            </div>
+                                                            <div *ngIf="angForm.controls['posts'].errors.nonPositive ">
+                                                                Twitter Posts is positive.
+                                                            </div>
+                                                            <div *ngIf="angForm.controls['posts'].errors.pattern">
+                                                                Twitter Posts must be a valid number
+                                                            </div>
+                                                            
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-6">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-4 col-form-label" for="open">Open Price
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="col-lg-6">
+                                                        <input type="text" class="form-control" id="open" placeholder="$21.60" formControlName="open" type="number">
+                                                        
+                                                        <div *ngIf="angForm.controls['open'].invalid && (angForm.controls['open'].dirty || angForm.controls['open'].touched)" class="text-danger fs-13 mt-1">
+                                                            
+                                                            <div *ngIf="angForm.controls['open'].errors.required">
+                                                                Open Price is required.
+                                                            </div>
+                                                            <div *ngIf="angForm.controls['open'].errors.nonPositive">
+                                                                Open Price is positive.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-4 col-form-label" for="low">Low Price
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="col-lg-6">
+                                                        <input type="text" class="form-control" id="low" placeholder="$21.60" formControlName="low" type="number">
+                                                        
+                                                        <div *ngIf="angForm.controls['low'].invalid && (angForm.controls['low'].dirty || angForm.controls['low'].touched)" class="text-danger fs-13 mt-1">
+                                                            
+                                                            <div *ngIf="angForm.controls['low'].errors.required">
+                                                                Low Price is required.
+                                                            </div>
+                                                            <div *ngIf="angForm.controls['low'].errors.nonPositive">
+                                                                Low Price is positive.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="form-group row">
+                                                    <label class="col-lg-4 col-form-label" for="interets">Google Interest <span
+                                                        class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="col-lg-6">
+                                                        <input type="text" class="form-control" id="interets" placeholder="5" formControlName="interets" type="number">
+                                                        <div *ngIf="angForm.controls['interets'].invalid && (angForm.controls['interets'].dirty || angForm.controls['interets'].touched)" class="text-danger fs-13 mt-1">
+                                                            
+                                                            <div *ngIf="angForm.controls['interets'].errors.required">
+                                                                Google Interest is required.
+                                                            </div>
+                                                            <div *ngIf="angForm.controls['interets'].errors.nonPositive">
+                                                                Google Interest is positive.
+                                                            </div>
+                                                            <div *ngIf="angForm.controls['interets'].errors.max">
+                                                                 Interest must be between 0 and 100.
+                                                            </div>
+                                                            <div *ngIf="angForm.controls['interets'].errors.pattern">
+                                                                Interest must be a valid number
+                                                           </div>
+                                                            
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-4 col-form-label" for="volume">Volume <span
+                                                        class="text-danger">*</span>
+                                                    </label>
+                                                    
+                                                        <div class="col-lg-6">
+                                                            <input type="text" class="form-control" id="volume" placeholder="5" formControlName="volume" type="number">
+                                                            <div *ngIf="angForm.controls['volume'].invalid && (angForm.controls['volume'].dirty || angForm.controls['volume'].touched)" class="text-danger fs-13 mt-1">
+                                                                
+                                                                <div *ngIf="angForm.controls['volume'].errors.required">
+                                                                    Volume is required.
+                                                                </div>
+                                                                <div *ngIf="angForm.controls['volume'].errors.nonPositive">
+                                                                    Volume is positive
+                                                                </div>
+                                                                <div *ngIf="angForm.controls['volume'].errors.pattern">
+                                                                    Volume must be a valid number
+                                                                </div>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    
+                                                </div>
+                                                
+                                                
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-lg-8 ml-auto">
+                                                <button type="submit" class="btn btn-primary" [disabled]="angForm.pristine || angForm.invalid" (click)="onSubmit()">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+            <!--**********************************
+                         Content body start
+             ***********************************-->
+            <div class="col-xl-6 col-xxl-12">
+                <div class="card">
+                    <div class="card-header d-block">
+                        <h4 class="card-title">DataSet Satatistics</h4>
+                    </div>
+                    <div class="card-body">
+                
+                        <p style="display:flex;align:center">
+
+                            <iframe title="powerBI" width="1140" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=d92ae16b-4e29-4ed9-986e-f84c951c9adb&autoAuth=true&ctid=604f1a96-cbe8-43f8-abbf-f8eaf5d85730" frameborder="0" allowFullScreen="true"></iframe>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+           
+           
+           
+        </div>
+        
+    </div>
+</div>
+<!--**********************************
+    Content body end
+***********************************-->
+
+
+

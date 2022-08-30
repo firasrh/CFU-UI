@@ -1,0 +1,363 @@
+<app-nav-header></app-nav-header>
+<app-header></app-header>
+<app-navigation></app-navigation>
+<div class="content-body">
+  <div class="container-fluid">
+    <h2 class="font-w600 mb-0 text-black">Portfolios</h2>
+    <div class="card">
+      <div class="col-xl-12">
+        <ng-template #contentDelete let-c="close" let-d="dismiss">
+          <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Confirmation</h4>
+            <button
+              type="button"
+              class="close"
+              aria-label="Close"
+              (click)="d('Cross click')"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure to delete this?</p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-outline-dark"
+              (click)="d('Cross click')"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-dark"
+              (click)="c('yes')"
+            >
+              Yes
+            </button>
+          </div>
+        </ng-template>
+        <ng-template #contentUpdate let-c="close" let-d="dismiss">
+          <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title2">Edit</h4>
+            <button
+              type="button"
+              class="close"
+              aria-label="Close"
+              (click)="d('Cross click')"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="portfolioForm">
+              <div class="form-group">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Name</mat-label>
+                  <input
+                    formControlName="name"
+                    matInput
+                    [(ngModel)]="currentPortfolio.name"
+                  />
+                </mat-form-field>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-outline-dark"
+              (click)="d('Cross click')"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-dark"
+              (click)="c('save')"
+            >
+              save
+            </button>
+          </div>
+        </ng-template>
+        <ng-template #contentAdd let-c="close" let-d="dismiss">
+          <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title3">Add</h4>
+            <button
+              type="button"
+              class="close"
+              aria-label="Close"
+              (click)="d('Cross click')"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="portfolioForm">
+              <div class="form-group">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Name</mat-label>
+                  <input formControlName="name" matInput />
+                </mat-form-field>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-outline-dark"
+              (click)="d('Cross click')"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-dark"
+              (click)="c('save')"
+            >
+              save
+            </button>
+          </div>
+        </ng-template>
+
+        <div class="card-header pb-2 d-block d-sm-flex flex-wrap border-0">
+          <h4 class="fs-20 text-black">All Portfolios</h4>
+          <p class="mb-0 fs-12">Enter your portfolio name :</p>
+          <div class="search">
+            <input
+              type="text"
+              [(ngModel)]="term"
+              class="searchTerm form-control mr-sm-2 search-area"
+              placeholder="Ex: portfolio1"
+            />
+          </div>
+
+          <mat-form-field style="top: 10px" appearance="fill">
+            <mat-label>Categories</mat-label>
+            <mat-select [formControl]="categ" multiple>
+              <mat-select-trigger>
+                {{ categ.value ? categ.value[0] : "" }}
+                <span
+                  *ngIf="categ.value?.length > 1"
+                  class="example-additional-selection"
+                >
+                  (+{{ categ.value.length - 1 }}
+                  {{ categ.value?.length === 2 ? "other" : "others" }})
+                </span>
+              </mat-select-trigger>
+              <mat-option
+                (onSelectionChange)="getValues($event)"
+                *ngFor="let cat of Allcategories"
+                [value]="cat"
+                >{{ cat }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+          <div class="card-action card-tabs mb-3 style-1">
+            <ul class="nav nav-tabs" role="tablist" ngbNav #nav="ngbNav">
+              <li class="nav-item" ngbNavItem="Monthly">
+                <a
+                  (click)="openAdd(contentAdd)"
+                  class="nav-link"
+                  data-toggle="tab"
+                  href="#Weekly"
+                  role="tab"
+                  aria-selected="false"
+                  ngbNavLink
+                >
+                  <i class="fa fa-plus" aria-hidden="true"></i>Add portfolio</a
+                >
+
+                <ng-template ngbNavContent>
+                  <div class="table-responsive">
+                    <table
+                      class="table table-bordered border-none shadow-hover card-table tbl-btn short-one"
+                    >
+                      <tbody>
+                        <ng-container *ngIf="show">
+                          <tr *ngFor="let item of elements | filter: term">
+                            <td>
+                              <span>
+                                <svg
+                                  width="63"
+                                  height="63"
+                                  viewBox="0 0 63 63"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <rect
+                                    width="63"
+                                    height="63"
+                                    rx="14"
+                                    fill="#eb8153"
+                                  />
+                                  <path
+                                    d="M40.6186 32.7207L40.6186 32.7207L40.6353 39.6289C40.6354 39.6328 40.6354 39.6363 40.6353 39.6396M40.6186 32.7207L40.1353 39.6341L40.6353 39.635C40.6353 39.6481 40.6347 39.6583 40.6345 39.6627L40.6344 39.6642C40.6346 39.6609 40.6351 39.652 40.6353 39.6407C40.6353 39.6403 40.6353 39.64 40.6353 39.6396M40.6186 32.7207C40.6167 31.9268 39.9717 31.2847 39.1777 31.2866C38.3838 31.2885 37.7417 31.9336 37.7436 32.7275L37.7436 32.7275L37.7519 36.1563M40.6186 32.7207L37.7519 36.1563M40.6353 39.6396C40.6329 40.4282 39.9931 41.0705 39.2017 41.0726C39.2 41.0726 39.1983 41.0727 39.1965 41.0727L39.1944 41.0727L39.1773 41.0726L32.2834 41.056L32.2846 40.556L32.2834 41.056C31.4897 41.054 30.8474 40.4091 30.8494 39.615C30.8513 38.8211 31.4964 38.179 32.2903 38.1809L32.2903 38.1809L35.719 38.1892L22.5364 25.0066C21.975 24.4452 21.975 23.5351 22.5364 22.9737C23.0978 22.4123 24.0079 22.4123 24.5693 22.9737L37.7519 36.1563M40.6353 39.6396C40.6353 39.6376 40.6353 39.6356 40.6353 39.6336L37.7519 36.1563M39.1964 41.0726C39.1957 41.0726 39.1951 41.0726 39.1944 41.0726L39.1964 41.0726Z"
+                                    fill="white"
+                                    stroke="white"
+                                  />
+                                </svg>
+                              </span>
+                            </td>
+                            <td>
+                              <span class="font-w600 text-black"
+                                >{{ item.name }}
+                              </span>
+                              <mat-chip-list
+                                *ngIf="item.categories?.length > 3"
+                                aria-label="Fish selection"
+                              >
+                                <mat-chip style="top: 8px">{{
+                                  item.categories[0]
+                                }}</mat-chip>
+                                <mat-chip style="top: 8px">{{
+                                  item.categories[1]
+                                }}</mat-chip>
+                                <mat-chip style="top: 8px">{{
+                                  item.categories[2]
+                                }}</mat-chip>
+                                <mat-icon
+                                  style="top: 8px"
+                                  mat-raised-button
+                                  matTooltip="{{ item.cat }}"
+                                  aria-label="Button that displays a tooltip when focused or hovered over"
+                                >
+                                  expand_more</mat-icon
+                                >
+                              </mat-chip-list>
+
+                              <mat-chip-list
+                                *ngIf="item.categories?.length < 3"
+                                aria-label="Fish selection"
+                              >
+                                <mat-chip
+                                  *ngFor="let i of item.categories"
+                                  style="top: 8px"
+                                  >{{ i }}</mat-chip
+                                >
+                              </mat-chip-list>
+                            </td>
+
+                            <td>
+                              <i
+                                (click)="gotoDetails(item)"
+                                class="fa fa-info-circle"
+                                style="font-size: 28px; color: rgb(255, 230, 9)"
+                              ></i>
+                              <div class="space"></div>
+                              <i
+                                (click)="openUpdate(contentUpdate, item.id)"
+                                class="fa fa-edit"
+                                style="font-size: 28px; color: rgb(0, 217, 255)"
+                              ></i>
+                              <div class="space"></div>
+                              <i
+                                (click)="openDelete(contentDelete, item.id)"
+                                class="fa fa-trash-o"
+                                style="font-size: 28px; color: red"
+                              ></i>
+                            </td>
+                          </tr>
+                        </ng-container>
+                        <ng-container *ngIf="!show">
+                          <tr *ngFor="let item of portfolios | filter: term">
+                            <td>
+                              <span>
+                                <svg
+                                  width="63"
+                                  height="63"
+                                  viewBox="0 0 63 63"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <rect
+                                    width="63"
+                                    height="63"
+                                    rx="14"
+                                    fill="#eb8153"
+                                  />
+                                  <path
+                                    d="M40.6186 32.7207L40.6186 32.7207L40.6353 39.6289C40.6354 39.6328 40.6354 39.6363 40.6353 39.6396M40.6186 32.7207L40.1353 39.6341L40.6353 39.635C40.6353 39.6481 40.6347 39.6583 40.6345 39.6627L40.6344 39.6642C40.6346 39.6609 40.6351 39.652 40.6353 39.6407C40.6353 39.6403 40.6353 39.64 40.6353 39.6396M40.6186 32.7207C40.6167 31.9268 39.9717 31.2847 39.1777 31.2866C38.3838 31.2885 37.7417 31.9336 37.7436 32.7275L37.7436 32.7275L37.7519 36.1563M40.6186 32.7207L37.7519 36.1563M40.6353 39.6396C40.6329 40.4282 39.9931 41.0705 39.2017 41.0726C39.2 41.0726 39.1983 41.0727 39.1965 41.0727L39.1944 41.0727L39.1773 41.0726L32.2834 41.056L32.2846 40.556L32.2834 41.056C31.4897 41.054 30.8474 40.4091 30.8494 39.615C30.8513 38.8211 31.4964 38.179 32.2903 38.1809L32.2903 38.1809L35.719 38.1892L22.5364 25.0066C21.975 24.4452 21.975 23.5351 22.5364 22.9737C23.0978 22.4123 24.0079 22.4123 24.5693 22.9737L37.7519 36.1563M40.6353 39.6396C40.6353 39.6376 40.6353 39.6356 40.6353 39.6336L37.7519 36.1563M39.1964 41.0726C39.1957 41.0726 39.1951 41.0726 39.1944 41.0726L39.1964 41.0726Z"
+                                    fill="white"
+                                    stroke="white"
+                                  />
+                                </svg>
+                              </span>
+                            </td>
+                            <td>
+                              <span class="font-w600 text-black"
+                                >{{ item.name }}
+                              </span>
+                              <mat-chip-list
+                                *ngIf="item.categories?.length > 3"
+                                aria-label="Fish selection"
+                              >
+                                <mat-chip style="top: 8px">{{
+                                  item.categories[0]
+                                }}</mat-chip>
+                                <mat-chip style="top: 8px">{{
+                                  item.categories[1]
+                                }}</mat-chip>
+                                <mat-chip style="top: 8px">{{
+                                  item.categories[2]
+                                }}</mat-chip>
+                                <mat-icon
+                                  style="top: 8px"
+                                  mat-raised-button
+                                  matTooltip="{{ item.cat }}"
+                                  aria-label="Button that displays a tooltip when focused or hovered over"
+                                >
+                                  expand_more</mat-icon
+                                >
+                              </mat-chip-list>
+
+                              <mat-chip-list
+                                *ngIf="item.categories?.length <= 3"
+                                aria-label="Fish selection"
+                              >
+                                <mat-chip
+                                  *ngFor="let i of item.categories"
+                                  style="top: 8px"
+                                  >{{ i }}</mat-chip
+                                >
+                              </mat-chip-list>
+                            </td>
+
+                            <td>
+                              <i
+                                (click)="gotoDetails(item)"
+                                class="fa fa-info-circle"
+                                style="font-size: 28px; color: rgb(255, 230, 9)"
+                              ></i>
+                              <div class="space"></div>
+                              <i
+                                (click)="openUpdate(contentUpdate, item.id)"
+                                class="fa fa-edit"
+                                style="font-size: 28px; color: rgb(0, 217, 255)"
+                              ></i>
+                              <div class="space"></div>
+                              <i
+                                (click)="openDelete(contentDelete, item.id)"
+                                class="fa fa-trash-o"
+                                style="font-size: 28px; color: red"
+                              ></i>
+                            </td>
+                          </tr>
+                        </ng-container>
+                      </tbody>
+                    </table>
+                  </div>
+                </ng-template>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card-body p-0">
+          <div [ngbNavOutlet]="nav" class=""></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

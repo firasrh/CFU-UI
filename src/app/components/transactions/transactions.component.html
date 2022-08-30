@@ -1,0 +1,156 @@
+<app-nav-header></app-nav-header>
+<app-header></app-header>
+<app-navigation></app-navigation>
+<div class="content-body">
+  <div class="container-fluid">
+    <h2 class="font-w600 mb-0 text-black">Transactions</h2>
+    <div class="form-head d-flex align-items-center flex-wrap mb-3">
+      <div class="card" style="width: 20rem">
+        <div class="card-body">
+          <h5 class="card-title">{{ change | currency: currency }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">
+            24h Portfolio Change ({{ percent24 | percent: "1.0-1" }})
+          </h6>
+        </div>
+      </div>
+      <div class="card" style="width: 15rem">
+        <div class="card-body">
+          <h5 class="card-title">{{ hv | currency: currency }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">Holdings Value</h6>
+        </div>
+      </div>
+
+      <div class="card" style="width: 12rem">
+        <div class="card-body">
+          <h5 class="card-title">{{ value24 | currency: currency }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">Total Cost</h6>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-12">
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="addTransaction()"
+        >
+          <i class="fa fa-plus" aria-hidden="true"></i>Add Transaction
+        </button>
+        <div class="table-responsive table-hover fs-14">
+          <table
+            class="table display mb-4 dataTablesCard dataTable short-one card-table text-black"
+            id="example5"
+          >
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Coin</th>
+                <th>Price</th>
+                <th class="text-center">Quantity</th>
+                <th>Current value</th>
+                <th>Change (24h)</th>
+                <th class="text-center">Date</th>
+                <th>Fees</th>
+                <th class="text-center">Total</th>
+                <th>PNL</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let transaction of transactions; let i = index">
+                <td>
+                  <a
+                    href="javascript:void(0);"
+                    class="btn-link {{ transaction.status }} "
+                    >{{ transaction.type }}</a
+                  >
+                </td>
+                <td class="wspace-no">
+                  <span class="text-black">{{ transaction.coinId }}</span>
+                </td>
+                <td>
+                  <div *ngIf="transaction.price">
+                    <span class="text-black">{{
+                      transaction.price | currency: currency
+                    }}</span>
+                  </div>
+                </td>
+                <td class="text-center">
+                  <div *ngIf="transaction.status == 'text-success'">
+                    <span class="btn-link  {{ transaction.status }}"
+                      >+{{ transaction.quantity | number: "1.0-1" }}</span
+                    >
+                  </div>
+                  <div *ngIf="transaction.status == 'text-danger'">
+                    <span class="btn-link  {{ transaction.status }}"
+                      >-{{ transaction.quantity | number: "1.0-1" }}</span
+                    >
+                  </div>
+                </td>
+                <td>{{ transaction.value | currency: currency }}</td>
+                <td>{{ transaction.change | percent: "1.0-1" }}</td>
+                <td>{{ transaction.date | date: "short" }}</td>
+                <td class="wspace-no">
+                  <div *ngIf="transaction.fees">
+                    <span class="text-black">{{
+                      transaction.fees | currency: currency
+                    }}</span>
+                  </div>
+                </td>
+                <td class="text-center">
+                  <div *ngIf="transaction.total">
+                    <span class="text-black">{{
+                      transaction.total | currency: currency
+                    }}</span>
+                  </div>
+                  <div class="text-center" *ngIf="!transaction.total">-</div>
+                </td>
+                <td>
+                  <div *ngIf="transaction.pnl >= 0">
+                    <span class="text-success font-w600"
+                      >+{{ transaction.pnl | currency: currency }}</span
+                    >
+                  </div>
+                  <div *ngIf="transaction.pnl < 0">
+                    <span class="text-danger font-w600"
+                      >-{{ transaction.pnl * -1 | currency: currency }}</span
+                    >
+                  </div>
+                </td>
+                <td>
+                  <p class="mb-0 wspace-no">{{ transaction.notes }}</p>
+                </td>
+                <td>
+                  <div class="dropdown ml-4 dropdown-no-icon" ngbDropdown>
+                    <div
+                      class="btn-link"
+                      data-toggle="dropdown"
+                      ngbDropdownToggle
+                    ></div>
+                    <div
+                      class="dropdown-menu dropdown-menu-right"
+                      ngbDropdownMenu
+                    >
+                      <a
+                        class="dropdown-item"
+                        href="javascript:void(0);"
+                        (click)="editTransaction(transaction)"
+                        >Edit</a
+                      >
+                      <a
+                        class="dropdown-item"
+                        href="javascript:void(0);"
+                        (click)="deleteTransaction(transaction)"
+                        >Delete</a
+                      >
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

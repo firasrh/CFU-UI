@@ -1,0 +1,407 @@
+<h2 class="card-title">Edit Transaction to My Portfolio</h2>
+<mat-tab-group mat-align-tabs="center" [selectedIndex]="selectedIndex">
+  <mat-tab label="Buy">
+    <ng-template matTabContent>
+      <div class="card-body">
+        <div class="basic-form">
+          <form>
+            <div class="form-group mb-3">
+              <label for="coins"
+                >Coin
+                <span class="text-danger">*</span>
+              </label>
+              <select
+                id="coins"
+                class="input-primary form-control"
+                required
+                #c="ngModel"
+                [(ngModel)]="transaction.coinId"
+                (ngModelChange)="getExchangeByCoinId()"
+                [ngModelOptions]="{ standalone: true }"
+                required
+              >
+                <option
+                  *ngFor="let item of coins; let i = index"
+                  [value]="coins[i]"
+                >
+                  {{ coins[i] }}
+                </option>
+              </select>
+            </div>
+            <div class="form-group mb-3">
+              <label
+                >Price Per Coin
+                <span class="text-danger">*</span>
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                required
+                #p="ngModel"
+                [(ngModel)]="transaction.price"
+                (ngModelChange)="changeTotal()"
+                [ngModelOptions]="{ standalone: true }"
+                required
+              />
+            </div>
+            <div class="form-group mb-3">
+              <label
+                >Quantity
+                <span class="text-danger">*</span>
+              </label>
+              <div class="input-group mb-3 input-primary">
+                <input
+                  type="number"
+                  class="form-control"
+                  required
+                  #q="ngModel"
+                  [(ngModel)]="transaction.quantity"
+                  (ngModelChange)="changeTotal()"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+                <div class="input-group-append">
+                  <span class="input-group-text">$</span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group mb-3">
+              <label
+                >Total
+                <span class="text-danger">*</span>
+              </label>
+              <div class="input-group mb-3 input-primary">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
+                <input
+                  type="number"
+                  class="form-control"
+                  disabled
+                  [(ngModel)]="transaction.total"
+                  [ngModelOptions]="{ standalone: true }"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="form-group mb-3">
+              <label
+                >Date
+                <span class="text-danger">*</span>
+              </label>
+              <input
+                type="datetime-local"
+                required
+                #d="ngModel"
+                class="input-primary form-control"
+                [ngModel]="transaction.date | date: 'yyyy-MM-ddTHH:mm'"
+                (ngModelChange)="transaction.date = $event"
+                [ngModelOptions]="{ standalone: true }"
+                required
+              />
+            </div>
+            <div class="form-group mb-3">
+              <label>Fees (Optional)</label>
+              <div class="input-group mb-3 input-primary">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
+                <input
+                  type="number"
+                  class="form-control input-primary"
+                  [(ngModel)]="transaction.fees"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+              </div>
+            </div>
+            <div class="form-group mb-3">
+              <label>Notes (Optional)</label>
+              <input
+                type="text"
+                class="form-control input-primary"
+                [(ngModel)]="transaction.notes"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+            <div class="text-center">
+              <button type="button" class="btn btn-dark" (click)="cancel()">
+                Cancel
+              </button>
+              <button
+                type="submit"
+                [disabled]="c.invalid || p.invalid || q.invalid || d.invalid"
+                class="btn btn-primary"
+                (click)="update()"
+              >
+                Confirm
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="Sell">
+    <ng-template matTabContent>
+      <div class="card-body">
+        <div class="basic-form">
+          <form>
+            <div class="form-group mb-3">
+              <label for="coins"
+                >Coin
+                <span class="text-danger">*</span>
+              </label>
+              <select
+                id="coins"
+                class="input-primary form-control"
+                required
+                #c="ngModel"
+                [(ngModel)]="transaction.coinId"
+                (ngModelChange)="getExchangeByCoinId()"
+                [ngModelOptions]="{ standalone: true }"
+                required
+              >
+                <option
+                  *ngFor="let item of coins; let i = index"
+                  [value]="coins[i]"
+                >
+                  {{ coins[i] }}
+                </option>
+              </select>
+            </div>
+            <div class="form-group mb-3">
+              <label
+                >Price Per Coin
+                <span class="text-danger">*</span>
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                required
+                #p="ngModel"
+                [(ngModel)]="transaction.price"
+                (ngModelChange)="changeTotal()"
+                [ngModelOptions]="{ standalone: true }"
+                required
+              />
+            </div>
+            <div class="form-group mb-3">
+              <label
+                >Quantity
+                <span class="text-danger">*</span>
+              </label>
+              <div class="input-group mb-3 input-primary">
+                <input
+                  type="number"
+                  class="form-control"
+                  required
+                  #q="ngModel"
+                  [(ngModel)]="transaction.quantity"
+                  (ngModelChange)="changeTotal()"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+                <div class="input-group-append">
+                  <span class="input-group-text">$</span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group mb-3">
+              <label
+                >Total
+                <span class="text-danger">*</span>
+              </label>
+              <div class="input-group mb-3 input-primary">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
+                <input
+                  type="number"
+                  class="form-control"
+                  disabled
+                  [(ngModel)]="transaction.total"
+                  [ngModelOptions]="{ standalone: true }"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="form-group mb-3">
+              <label
+                >Date
+                <span class="text-danger">*</span>
+              </label>
+              <input
+                type="datetime-local"
+                required
+                #d="ngModel"
+                class="input-primary form-control"
+                [ngModel]="transaction.date | date: 'yyyy-MM-ddTHH:mm'"
+                (ngModelChange)="transaction.date = $event"
+                [ngModelOptions]="{ standalone: true }"
+                required
+              />
+            </div>
+            <div class="form-group mb-3">
+              <label>Fees (Optional)</label>
+              <div class="input-group mb-3 input-primary">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
+                <input
+                  type="number"
+                  class="form-control input-primary"
+                  [(ngModel)]="transaction.fees"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+              </div>
+            </div>
+            <div class="form-group mb-3">
+              <label>Notes (Optional)</label>
+              <input
+                type="text"
+                class="form-control input-primary"
+                [(ngModel)]="transaction.notes"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+            <div class="text-center">
+              <button type="button" class="btn btn-dark" (click)="cancel()">
+                Cancel
+              </button>
+              <button
+                type="submit"
+                [disabled]="c.invalid || p.invalid || q.invalid || d.invalid"
+                class="btn btn-primary"
+                (click)="update()"
+              >
+                Confirm
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="Transfer">
+    <ng-template matTabContent>
+      <div class="card-body">
+        <div class="basic-form">
+          <form>
+            <div class="form-group mb-3">
+              <label for="coins"
+                >Transfer
+                <span class="text-danger">*</span>
+              </label>
+              <select
+                id="coins"
+                class="btn btn-sm form-control"
+                ngModel
+                [(ngModel)]="transaction.type"
+                (ngModelChange)="getExchangeByCoinId()"
+                [ngModelOptions]="{ standalone: true }"
+              >
+                <option *ngFor="let item of typeTransfer" [value]="item.value">
+                  {{ item.name }}
+                </option>
+              </select>
+            </div>
+            <div class="form-group mb-3">
+              <label for="coins"
+                >Coin
+                <span class="text-danger">*</span>
+              </label>
+              <select
+                id="coins"
+                class="input-primary form-control"
+                required
+                #c="ngModel"
+                [(ngModel)]="transaction.coinId"
+                (ngModelChange)="getExchangeByCoinId()"
+                [ngModelOptions]="{ standalone: true }"
+                required
+              >
+                <option
+                  *ngFor="let item of coins; let i = index"
+                  [value]="coins[i]"
+                >
+                  {{ coins[i] }}
+                </option>
+              </select>
+            </div>
+            <div class="form-group mb-3">
+              <label
+                >Quantity
+                <span class="text-danger">*</span>
+              </label>
+              <div class="input-group mb-3 input-primary">
+                <input
+                  type="number"
+                  class="form-control"
+                  required
+                  #q="ngModel"
+                  [(ngModel)]="transaction.quantity"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+                <div class="input-group-append">
+                  <span class="input-group-text">$</span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group mb-3">
+              <label
+                >Date
+                <span class="text-danger">*</span>
+              </label>
+              <input
+                type="datetime-local"
+                required
+                #d="ngModel"
+                class="input-primary form-control"
+                [ngModel]="transaction.date | date: 'yyyy-MM-ddTHH:mm'"
+                (ngModelChange)="transaction.date = $event"
+                [ngModelOptions]="{ standalone: true }"
+                required
+              />
+            </div>
+            <div class="form-group mb-3">
+              <label>Fees (Optional)</label>
+              <div class="input-group mb-3 input-primary">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
+                <input
+                  type="number"
+                  class="form-control input-primary"
+                  [(ngModel)]="transaction.fees"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+              </div>
+            </div>
+            <div class="form-group mb-3">
+              <label>Notes (Optional)</label>
+              <input
+                type="text"
+                class="form-control input-primary"
+                [(ngModel)]="transaction.notes"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+            <div class="text-center">
+              <button type="button" class="btn btn-dark" (click)="cancel()">
+                Cancel
+              </button>
+              <button
+                type="submit"
+                [disabled]="c.invalid || q.invalid || d.invalid"
+                class="btn btn-primary"
+                (click)="update()"
+              >
+                Confirm
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>
