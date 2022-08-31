@@ -51,7 +51,7 @@ export class CoinService {
   }
   getExchangeByCoinId(coinId: string, currency: string) {
     return this.http.get<any>(
-      `https://api.coingecko.com/api/v3/simple/price?ids=${coinId}&vs_currencies=${currency}`
+      `https://api.coingecko.com/api/v3/simple/price?ids=${coinId}&vs_currencies=${currency}`, HTTP_HEADERS
     );
   }
   addTransaction(transaction: any): Observable<any> {

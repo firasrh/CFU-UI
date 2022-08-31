@@ -94,6 +94,7 @@ export class BoardAdminComponent implements OnInit {
           this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
         }
       );
+      this.reloadCurrentRoute();
   }
   openDelete(contentDelete: any, id: any) {
     this.modalService

@@ -259,14 +259,6 @@ export class PortofolioComponent implements OnInit {
         console.log(error);
       }
     );
-    this.coin.createCoin(data).subscribe(
-      (response) => {
-        console.log(response);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
 
     this.reloadCurrentRoute();
   }
