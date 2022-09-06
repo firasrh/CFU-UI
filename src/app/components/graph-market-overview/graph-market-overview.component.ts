@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { CoinService } from 'src/app/services/coin.service';
 import {
   ChartComponent,
   ApexAxisChartSeries,
@@ -14,6 +15,7 @@ import {
   ApexGrid,
   ApexResponsive,
 } from 'ng-apexcharts';
+import { CurrencyService } from 'src/app/services/currency.service';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries | any;
@@ -41,17 +43,16 @@ export type ChartOptions = {
 export class GraphMarketOverviewComponent implements OnInit {
   @ViewChild('chart') chart!: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
-
-  constructor() {
+  days: number = 7;
+  currency: string = 'USD';
+  The3BestCoins: any = [];
+  checkedValue: string = "bitcoin";
+  constructor(private coin: CoinService, private currencyService: CurrencyService) {
     this.chartOptions = {
       series: [
         {
           name: 'series1',
-          data: [200, 400, 400, 300, 500, 200, 200, 400, 300, 300],
-        },
-        {
-          name: 'series2',
-          data: [500, 300, 200, 400, 600, 400, 400, 300, 500, 200],
+          data: [],
         },
       ],
       chart: {
@@ -61,7 +62,7 @@ export class GraphMarketOverviewComponent implements OnInit {
         },
         type: 'area',
       },
-      colors: ['#FFAB2D', '#00ADA3'],
+      colors: ['#eb8153'],
       legend: {
         show: false,
       },
@@ -75,25 +76,16 @@ export class GraphMarketOverviewComponent implements OnInit {
         width: 4,
         curve: 'smooth',
       },
+      labels: [],
       xaxis: {
-        categories: [
-          'Week 01',
-          'Week 02',
-          'Week 03',
-          'Week 04',
-          'Week 05',
-          'Week 06',
-          'Week 07',
-          'Week 08',
-          'Week 09',
-          'Week 10',
-        ],
         labels: {
+          show: false,
           style: {
             colors: '#787878',
             fontSize: '13px',
             fontFamily: 'Poppins',
             fontWeight: 400,
+  
           },
         },
       },
@@ -119,17 +111,36 @@ export class GraphMarketOverviewComponent implements OnInit {
           format: 'dd/MM/yy HH:mm',
         },
       },
-      responsive: [
-        {
-          breakpoint: 575,
-          options: {
-            chart: {
-              height: 200,
-            },
-          },
-        },
-      ],
+
     };
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.currencyService.getCurrency().subscribe((val) => {
+      this.currency = val;
+      this.getGraphData(this.checkedValue);
+    });
+  }
+  getGraphData(coinId: string){
+    this.coin
+      .getGraphicalCurrencyData(coinId, this.currency, this.days)
+      .subscribe((res) => {
+        this.chartOptions.series[0].data = res.prices.map((a: any) => {
+          return a[1];
+        });
+        this.chartOptions.labels = res.prices.map((a: any) => {
+          let date = new Date(a[0]);
+          let time =
+            date.getHours() > 12
+              ? `${date.getHours() - 12}: ${date.getMinutes()} PM`
+              : `${date.getHours()}: ${date.getMinutes()} AM`;
+          return this.days === 1 ? time : date.toLocaleDateString();
+        
+       });
+       console.log(this.chartOptions.labels)
+      });
+  }
+  
+  checkValue(event: any){
+    this.getGraphData(event.value);
+ }
 }

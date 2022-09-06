@@ -5,7 +5,9 @@
   <div class="container-fluid">
     <div class="form-head mb-4 mb-sm-5 d-flex flex-wrap align-items-center">
       <h2 class="font-w600 mb-0 text-black">All Users</h2>
+     
     </div>
+    
     <ng-template #contentAdd let-c="close" let-d="dismiss">
       <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title3">Add</h4>
@@ -150,7 +152,9 @@
         >
           <i class="fa fa-plus" aria-hidden="true"></i>
           Add New User
+          
         </button>
+      
         <div class="table-responsive table-hover fs-14">
           <table
             class="table display mb-4 dataTablesCard dataTable short-one card-table text-black"
@@ -167,7 +171,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let user of Allusers; let i = index">
+              <tr *ngFor="let user of Allusers; let i = index ">
                 <td class="mb-0 wspace-no">#{{ user.id }}</td>
                 <td>{{ user.firstName }}</td>
                 <td>{{ user.lastName }}</td>

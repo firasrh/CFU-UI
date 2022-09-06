@@ -21,6 +21,7 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -60,8 +61,8 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
-
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { SwiperModule } from 'swiper/angular';
 
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
@@ -200,7 +201,8 @@ const CLIENT_ID_GOOLE = environment.client_Id_Google;
     MatInputModule,
     Ng2SearchPipeModule,
     NgChartsModule,
-    
+    SlickCarouselModule,
+    SwiperModule
     
   ],
   providers: [

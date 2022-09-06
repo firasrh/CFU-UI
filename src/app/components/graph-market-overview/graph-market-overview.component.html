@@ -1,12 +1,17 @@
 <div class="card">
   <div class="card-header border-0 flex-wrap pb-0">
     <div class="mb-3">
-      <h4 class="fs-20 text-black">Market Overview</h4>
-      <p class="mb-0 fs-12 text-black">
-        Lorem ipsum dolor sit amet, consectetur
+      <h4 class="fs-20 text-black">The 2 best cryptocurrencies to invest in 2022 </h4>
+      <p class="mb-0 fs-15 text-black">
+        Evolution chart for this week
       </p>
     </div>
-    <div class="d-flex flex-wrap mb-2">
+    <mat-radio-group  (change)="checkValue($event)" aria-label="Select an option">
+      <mat-radio-button value="bitcoin" checked>Bitcoin</mat-radio-button>
+      <div class="space"></div>
+      <mat-radio-button value="ethereum">Ethereum</mat-radio-button>
+    </mat-radio-group>
+   <!-- <div class="d-flex flex-wrap mb-2"   (change)="selectChangeHandler($event)">
       <div class="custom-control check-switch custom-checkbox mr-4 mb-2">
         <input type="checkbox" class="custom-control-input" id="customCheck9" />
         <label class="custom-control-label" for="customCheck9">
@@ -14,7 +19,7 @@
         </label>
       </div>
       <div class="custom-control check-switch custom-checkbox mr-4 mb-2">
-        <input
+        <input  checked value="bitcoin"
           type="checkbox"
           class="custom-control-input"
           id="customCheck91"
@@ -44,8 +49,9 @@
         </label>
       </div>
     </div>
+  -->
   </div>
-  <div class="card-body pb-0">
+  <div class="card-body pb-0" >
     <div id="marketChart" class="market-line">
       <apx-chart
         id="lineChart"

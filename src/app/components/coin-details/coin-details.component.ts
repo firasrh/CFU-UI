@@ -47,6 +47,7 @@ export class CoinDetailsComponent implements OnInit {
         grid: {
           display: false,
         },
+        
       },
     },
   };
