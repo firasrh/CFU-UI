@@ -61,7 +61,7 @@
         </thead>
         <tbody  *ngFor="let item of SellTransactions">
           <tr>
-            <td class="text-left">{{item.price}}</td>
+            <td class="text-left">{{item.price | currency: currency}}</td>
             <td>{{item.quantity}}</td>
             <td class="text-right">{{item.date | date:'short'}}</td>
           </tr>
