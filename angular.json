@@ -1,5 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": "50cd5448-d57f-49ed-99c1-3250a30aa0bc"
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -39,6 +42,7 @@
             ],
             "scripts": [ "node_modules/apexcharts/dist/apexcharts.min.js", "node_modules/jquery/dist/jquery.min.js",
               "node_modules/slick-carousel/slick/slick.min.js"]
+             
           },
           "configurations": {
             "production": {
