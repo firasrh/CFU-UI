@@ -17,6 +17,7 @@ export class BuyOrderComponent implements OnInit {
   currentUserId: string = '';
   BuyTransactions: any = [];
   UserCoins: any = [];
+  currency2: string;
   constructor(private coin: CoinService,  private portfolio: PortfolioService) { }
 
   ngOnInit(): void {

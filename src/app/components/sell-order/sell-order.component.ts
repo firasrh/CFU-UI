@@ -17,6 +17,7 @@ export class SellOrderComponent implements OnInit {
   currentUserId: string = '';
   SellTransactions: any = [];
   UserCoins: any = [];
+  currency2: string;
   constructor(private coin: CoinService,  private portfolio: PortfolioService) {}
 
   ngOnInit(): void {
