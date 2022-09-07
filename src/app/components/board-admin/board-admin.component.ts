@@ -54,7 +54,9 @@ export class BoardAdminComponent implements OnInit {
   }
   getAllUsers() {
     this.users.getAllUsers().subscribe((content: any) => {
-      this.Allusers = content;
+      this.Allusers = content.filter((element: { role: string[] }) =>
+      !element.role.includes('ADMIN')
+    );
     });
   }
   deleteUser(id: any) {
