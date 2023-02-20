@@ -45,7 +45,7 @@ export class GraphMarketOverviewComponent implements OnInit {
   public chartOptions: Partial<ChartOptions>;
   days: number = 7;
   currency: string = 'USD';
-  The3BestCoins: any = [];
+  bestCoins: any = [];
   checkedValue: string = "bitcoin";
   constructor(private coin: CoinService, private currencyService: CurrencyService) {
     this.chartOptions = {

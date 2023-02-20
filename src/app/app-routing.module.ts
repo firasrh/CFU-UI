@@ -24,7 +24,7 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    canActivate: [AuthGuard],
+      canActivate: [AuthGuard],
   },
   {
     path: 'portfolios',
@@ -40,7 +40,7 @@ const routes: Routes = [
   {
     path: 'BoardAdmin',
     component: BoardAdminComponent,
-    canActivate: [AuthGuard],
+   canActivate: [AuthGuard],
   },
   { path: 'Error401', component: Error401Component },
   {

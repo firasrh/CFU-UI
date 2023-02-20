@@ -50,8 +50,8 @@ export class SellOrderComponent implements OnInit {
 
               })
           })
-          //console.log(this.Transactions)
-          //console.log(this.Coins)
+          console.log(this.Transactions)
+          console.log(this.Coins)
           this.coin.getCurrency(this.currency).subscribe((res) => {
             this.UserCoins = res.filter((element: { id: string }) =>
               this.Coins.includes(element.id))
